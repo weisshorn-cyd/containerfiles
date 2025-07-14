@@ -1,12 +1,9 @@
 FROM debian:bullseye
 
-# Install components
+# Packages install
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y squid-openssl \
  && mv /etc/squid/squid.conf /etc/squid/squid.conf.dist \
- && mkdir -p /var/lib/squid/ssl_db \
- && chown -R proxy:proxy /var/lib/squid/ssl_db \
- && /usr/lib/squid/security_file_certgen -c -s /var/spool/squid/ssl_db -M 4MB \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Config scripts
